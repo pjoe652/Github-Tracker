@@ -1,16 +1,41 @@
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
+import Navbar from "./Navbar";
+import UserDetails from "./UserDetails";
+import UserSearch from "./UserSearch"
 
-function Homepage() {
+function Userpage() {
   const [searchUser, setSearchUser] = useState("")
   const [suggestions, setSuggestions] = useState([])
   const [sortedSuggestions, setSortedSuggestions] = useState([])
   const [incompleteSearch, toggleIncompleteSearch] = useState(false)
-  const [displaySuggestions, toggleDisplaySuggestions] = useState(false)
   const [availableUsers, setAvailableUsers] = useState([])
   const [sortType, setSortType] = useState("created_at")
+  const [activeUserDetail, setActiveUserDetail] = useState(null)
 
+  const { id } = useParams()
   const history = useHistory()
+
+  useEffect(() => {
+    console.log(id)
+    if (id) {
+      setSearchUser(id)
+      setActiveUserDetail(
+        fetch(`https://api.github.com/users/${id}`, {
+          mode: "cors",
+          headers: {
+            Authorization: process.env.REACT_APP_GITHUB_API_KEY
+          }
+        })
+        .then(res => res.json())
+        .then(res => {
+          if (res.login) {
+            setActiveUserDetail(res)
+          }
+        })
+      )
+    }
+  }, [])
 
   useEffect(() => {
     if (searchUser.length > 5 && !incompleteSearch) {
@@ -45,6 +70,7 @@ function Homepage() {
         })
     } else if (searchUser.length <= 5) {
       setSuggestions([])
+      toggleIncompleteSearch(false)
     }
   }, [searchUser, incompleteSearch])
 
@@ -94,45 +120,20 @@ function Homepage() {
     history.push(`users/${user}`)
   }
 
-  console.log(sortedSuggestions)
-
   return (
-    <div className="userpage-container">
-      <div className="userpage-navbar">
-        <span className="userpage-header">Github User Search</span>
-        <form className="userpage-form" onSubmit={(e) => submitUserSearch(e)}>
-          <div className="input-dropdown-suggestions">
-            <input value={searchUser} onChange={(e) => setSearchUser(e.target.value)} onFocus={() => toggleDisplaySuggestions(true)} onBlur={() => toggleDisplaySuggestions(false)}/>
-            <ul className={suggestions.length > 0 ? "available" : "no-suggestions"}>
-              {
-                suggestions.filter(user => user.includes(searchUser) && displaySuggestions).map((user, i) => 
-                  <li style={{"--delay":`${(i + 1) * 0.1 + 0.3}s`}} onClick={() => selectSuggestion(user)}>{user}</li>
-                )
-              }
-            </ul>
-          </div>
-          <button type="submit"><i class="fas fa-search" /></button>
-        </form>
-      </div>
-      <div className="userpage-user-content-container">
-        <select className="sort-select" onChange={(e) => setSortType(e.target.value)}>
-          <option value="created_at">Created At</option>
-          <option value="followers">Followers</option>
-          <option value="public_repos">Public Repos</option>
-        </select>
-        <div className="suggested-users-container">
-          {
-            sortedSuggestions.sort((a, b) => {return b[sortType] - a[sortType]}).map(user => 
-              <div className="suggested-user-wrapper" onClick={() => selectUser(user.login)}>
-                <span>{user.login}</span>
-                <span>{sortType === "created_at" ? new Date(user[sortType]).toLocaleDateString("en-US") : user[sortType]}</span>
-              </div>
-            )
-          }
-        </div>
+    <div>
+      <div className="userpage-container">
+        <Navbar setSearchUser={setSearchUser} suggestions={suggestions} searchUser={searchUser} submitUserSearch={submitUserSearch} />
+        {
+          activeUserDetail 
+          ? <UserDetails activeUserDetail={activeUserDetail}/>
+          : <UserSearch sortType={sortType} setSortType={setSortType} sortedSuggestions={sortedSuggestions} selectUser={selectUser} />
+        }
+
       </div>
     </div>
+    
   );
 }
 
-export default Homepage;
+export default Userpage;

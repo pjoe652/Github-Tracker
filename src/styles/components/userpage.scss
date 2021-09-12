@@ -1,0 +1,44 @@
+.user-details-container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 7rem;
+
+  .user-details-main {
+    display: flex;
+    flex-direction: row;
+
+    img {
+      border-radius: 50%;
+      border: solid 3px;
+    }
+
+    .user-personal-details {
+      display: flex;
+      flex-direction: column;
+      padding-left: 3rem;
+      font-size: 1.25rem;
+      align-self: center;
+      
+      span {
+        padding-top: 0.25rem;
+
+        &.name {
+          font-weight: bold;
+        }
+
+        &.company {
+          font-weight: lighter;
+        }
+
+        &.email {
+          font-weight: lighter;
+          color: rgb(201, 201, 201);
+        }
+
+        &.minor {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}

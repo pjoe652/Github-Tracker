@@ -1,20 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
-import UserSearch from './components/UserSearch';
 import Homepage from './components/Homepage';
+import UserDetails from './components/UserDetails';
+import Userpage from './components/UserPage';
 
 function App() {
   return (
     <Router>
-      <Route exact path="users/:id">
-        <UserSearch />
+      <Route exact path="/users/:id">
+        <Userpage />
       </Route>
-      <Route exact path="users">
-        <UserSearch />
+      <Route exact path="/users">
+        <Userpage />
       </Route>
       <Route exact path="/">
-        <Homepage />
+        <Userpage />
       </Route>
     </Router>
   );

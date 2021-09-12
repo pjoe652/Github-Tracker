@@ -33,13 +33,13 @@ function UserDetails(props) {
         </div>
       </div>
       <div>
-        {
+        {/* {
           userRepos.length > 0 ? userRepos.map(repo => 
               <div className="">
 
               </div>
             )
-        }
+        } */}
       </div>
     </div>
   );
