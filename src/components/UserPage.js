@@ -17,7 +17,6 @@ function Userpage() {
   const history = useHistory()
 
   useEffect(() => {
-    console.log(id)
     if (id) {
       setSearchUser(id)
       setActiveUserDetail(

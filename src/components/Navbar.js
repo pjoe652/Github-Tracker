@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useHistory } from "react-router";
+// import GithubLogo from "../../public"
 
 function Navbar(props) {
   const { searchUser, suggestions, setSearchUser, submitUserSearch } = props
   const [displaySuggestions, toggleDisplaySuggestions] = useState(false)
+  const history = useHistory()
 
   const delayedToggleDisplaySuggestion = (change) => {
     setTimeout(() => {
@@ -12,7 +15,7 @@ function Navbar(props) {
 
   return (
     <div className="userpage-navbar">
-      <span className="userpage-header">Github User Search</span>
+      <span className="userpage-header"><i class="fab fa-github-alt" onClick={() => history.push("/")}/></span>
       <form className="userpage-form" onSubmit={(e) => submitUserSearch(e)}>
         <div className="input-dropdown-suggestions">
           <input value={searchUser} onChange={(e) => setSearchUser(e.target.value)} onFocus={() => toggleDisplaySuggestions(true)} onBlur={() => delayedToggleDisplaySuggestion(false)}/>
