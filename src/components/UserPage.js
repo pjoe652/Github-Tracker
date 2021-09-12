@@ -112,7 +112,10 @@ function Userpage() {
   }
 
   const selectSuggestion = (user) => {
-    setSearchUser(user)
+    fetchDetailedUser(suggestions).then(detailedRes => {
+      sortSuggestions(detailedRes)
+      setSearchUser(user)
+    })
   }
 
   const selectUser = (user) => {
@@ -122,7 +125,7 @@ function Userpage() {
   return (
     <div>
       <div className="userpage-container">
-        <Navbar setSearchUser={setSearchUser} suggestions={suggestions} searchUser={searchUser} submitUserSearch={submitUserSearch} />
+        <Navbar setSearchUser={setSearchUser} suggestions={suggestions} searchUser={searchUser} submitUserSearch={submitUserSearch} selectSuggestion={selectSuggestion}/>
         {
           activeUserDetail 
           ? <UserDetails activeUserDetail={activeUserDetail}/>

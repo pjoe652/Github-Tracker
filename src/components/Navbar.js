@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useHistory } from "react-router";
-// import GithubLogo from "../../public"
 
 function Navbar(props) {
-  const { searchUser, suggestions, setSearchUser, submitUserSearch } = props
+  const { searchUser, suggestions, setSearchUser, submitUserSearch, selectSuggestion } = props
   const [displaySuggestions, toggleDisplaySuggestions] = useState(false)
   const history = useHistory()
 
@@ -15,14 +14,14 @@ function Navbar(props) {
 
   return (
     <div className="userpage-navbar">
-      <span className="userpage-header"><i class="fab fa-github-alt" onClick={() => history.push("/")}/></span>
+      <i className="fab fa-github-alt userpage-header" onClick={() => history.push("/")}/>
       <form className="userpage-form" onSubmit={(e) => submitUserSearch(e)}>
         <div className="input-dropdown-suggestions">
-          <input value={searchUser} onChange={(e) => setSearchUser(e.target.value)} onFocus={() => toggleDisplaySuggestions(true)} onBlur={() => delayedToggleDisplaySuggestion(false)}/>
+          <input value={searchUser} onChange={(e) => setSearchUser(e.target.value)} placeholder="Search for a user" onFocus={() => toggleDisplaySuggestions(true)} onBlur={() => delayedToggleDisplaySuggestion(false)} />
           <ul className={suggestions.length > 0 ? "available" : "no-suggestions"}>
             {
               suggestions.filter(user => user.includes(searchUser) && displaySuggestions).map((user, i) => 
-                <li style={{"--delay":`${(i + 1) * 0.1 + 0.3}s`}} onClick={() => setSearchUser(user)}>{user}</li>
+                <li key={`${user}`} style={{"--delay":`${(i + 1) * 0.1 + 0.3}s`}} onClick={() => selectSuggestion(user)}>{user}</li>
               )
             }
           </ul>
