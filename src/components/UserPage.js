@@ -61,7 +61,7 @@ function Userpage() {
   }, [])
 
   useEffect(() => {
-    if (searchUser.length > 5 && !incompleteSearch) {
+    if (searchUser && searchUser.length > 5 && !incompleteSearch) {
       fetch(`https://api.github.com/search/users?q=${searchUser}&per_page=10`, {
         mode: "cors",
         headers: {
@@ -91,7 +91,7 @@ function Userpage() {
             displayError()
           }
         })
-    } else if (searchUser.length <= 5) {
+    } else if (searchUser && searchUser.length <= 5) {
       setSuggestions([])
       toggleIncompleteSearch(false)
     }
