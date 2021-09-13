@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import Particles from "react-particles-js";
 import { useHistory, useLocation, useParams } from "react-router";
+import { particleParams, particleStyle } from "../constants/particle";
 import Navbar from "./Navbar";
 import UserDetails from "./UserDetails";
 import UserSearch from "./UserSearch";
@@ -172,6 +174,7 @@ function Userpage() {
 
   return (
     <div className="userpage-container">
+      <Particles height="100vh" width="100vw" style={particleStyle} params={particleParams}/>
       <Navbar setSearchUser={setSearchUser} suggestions={suggestions} searchUser={searchUser} submitUserSearch={submitUserSearch} selectSuggestion={selectSuggestion}/>
       {
         errored ? <div className="error-message">There has been an error with your request</div> : null

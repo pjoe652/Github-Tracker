@@ -112,7 +112,7 @@
       text-align: center;
       overflow-wrap: anywhere;
       overflow-y: auto;
-      background-color: rgb(20, 20, 20);
+      background-color: rgba(20, 20, 20, 0.7);
       box-shadow: 0 3px 10px black;
 
       @media screen and (max-width: $phone) {
