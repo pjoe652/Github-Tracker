@@ -1,38 +1,43 @@
 import { useEffect, useState } from "react";
 import GitHubColors from "github-colors";
-import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { Line } from "react-chartjs-2";
 import moment from "moment";
 
 const options = {
+  hover: {
+    mode: "nearest",
+  },
+  tooltips: {
+    mode: "nearest"
+  },
+  animation: {
+    duration: 0
+  },
   scales: {
-    yAxes: [
-      {
-        ticks: {
-          beginAtZero: true,
-        },
+    y: {
+      ticks: {
+        beginAtZero: true
       },
-    ],
-    xAxes: [
-      {
-        ticks: {
-          beginAtZero: true
-        },
+      grid: {
+        display: false,
+        color: "rgba(255, 255, 255, 0.1)"
+      },
+      min: 0
+    },
+    x: {
+      grid: {
+        display: false,
+        color: "rgba(255, 255, 255, 0.1)"
       }
-    ]
+    }
   }
 };
 
-const daysArray = Array.from(Array(30), (ele, i) => ``)
-
 function UserDetails(props) {
   const { activeUserDetail } = props;
-  console.log(GitHubColors.get("C++"))
-  // const [additionalDetails, setAdditionalDetails] = useState({})
   const [userRepos, setUserRepos] = useState([])
   const [repoDatapoints, setRepoDatapoints] = useState([])
-  const history = useHistory()
 
   useEffect(() => {
     fetch(activeUserDetail.repos_url, {
@@ -65,7 +70,7 @@ function UserDetails(props) {
       .then((res) => {
         if (!res.message) {
           // Initialize an array with 0 commits across 30 days
-          const monthDatapoints = Array.from(Array(30), () => 0);
+          const monthDatapoints = Array.from(Array(30), (ele, i) => { return {x: new moment().subtract(30 - i, 'days').format('DD-MM-YYYY'), y: 0} });
           const currentDate = new moment()
           const previousDate = new moment().subtract(30, 'days')
 
@@ -74,7 +79,7 @@ function UserDetails(props) {
             const commitDate = moment(commit.commit.committer.date)
             if (commitDate.isBetween(previousDate, currentDate)) {
               const day = currentDate.diff(commitDate, 'days')
-              monthDatapoints[30 - day] = monthDatapoints[30 - day] + 1;
+              monthDatapoints[29 - day].y = monthDatapoints[29 - day].y + 1;
             }
           })
           return monthDatapoints;
@@ -107,9 +112,9 @@ function UserDetails(props) {
             <span className="repo-language">{repo.language}</span>
             <span>Last Updated <b>{new Date(repo.updated_at).toLocaleDateString("en-US")}</b></span>
             <span className="repo-description">{repo.description}</span>
+            <span className="graph-title">Recent Commit Activity (30 days)</span>
             <Line data={
               { 
-                labels: daysArray, 
                 datasets: [
                   {
                     label: "# of commits", 
@@ -117,7 +122,6 @@ function UserDetails(props) {
                     fill: false, 
                     backgroundColor: repo.language && GitHubColors.get(repo.language) ? GitHubColors.get(repo.language).color : "black",
                     borderColor: repo.language && GitHubColors.get(repo.language) ? GitHubColors.get(repo.language).color : "black",
-                    pointRadius: 0
                   }
                 ]
               }

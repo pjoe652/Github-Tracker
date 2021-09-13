@@ -7,12 +7,28 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
+
+    @media screen and (max-width: $phone) {
+      flex-direction: column;
+      text-align: center;
+    }
 
     img {
       height: 15rem;
       width: 15rem;
       border-radius: 50%;
       border: solid 3px;
+
+      @media screen and (max-width: $phone) {
+        width: 12.5rem;
+        height: 12.5rem;
+      }
+
+      @media screen and (max-width: $phone-sm) {
+        width: 10rem;
+        height: 10rem;
+      }
     }
 
     .user-personal-details {
@@ -21,6 +37,11 @@
       padding-left: 3rem;
       font-size: 1.25rem;
       align-self: center;
+
+      @media screen and (max-width: $phone) {
+        padding-top: 1rem;
+        padding-left: 0;
+      }
 
       a {
         text-decoration: none;
@@ -89,6 +110,25 @@
       padding: 1rem;
       margin: 1rem;
       text-align: center;
+      overflow-wrap: anywhere;
+      overflow-y: auto;
+      background-color: rgb(20, 20, 20);
+      box-shadow: 0 3px 10px black;
+
+      @media screen and (max-width: $phone) {
+        width: 20rem;
+        height: 30rem;
+      }
+
+      @media screen and (max-width: $phone-sm) {
+        width: 15rem;
+        height: 25rem;
+      }
+
+      @media screen and (max-width: $phone-fold) {
+        width: 12.5rem;
+        height: 25rem;
+      }
       
       span {
         padding-bottom: 0.5rem;
@@ -129,12 +169,32 @@
       }
 
       .language-ring {
-        height: 5rem;
+        min-height: 5rem;
         width: 5rem;
-        border: solid 3px var(--languageColor);
+        border: solid 3px white;
         border-radius: 50%;
-        background-color: black;
+        background-color: var(--languageColor);
         margin-bottom: 1rem;
+
+        @media screen and (max-width: $phone) {
+          width: 4rem;
+          min-height: 4rem;
+        }
+  
+        @media screen and (max-width: $phone-sm) {
+          width: 3rem;
+          min-height: 3rem;
+        }
+
+        @media screen and (max-width: $phone-fold) {
+          width: 1rem;
+          min-height: 1rem;
+        }
+      }
+
+      .graph-title {
+        padding-top: 1rem;
+        font-weight: bold;
       }
     }
   }

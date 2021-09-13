@@ -4,13 +4,31 @@
   width: 100%;
   height: 100%;
   align-items: center;
+  overflow: hidden;
 
   .homepage-main {
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 100%;
-    padding-top: 12.5%;
+    padding: 15rem 0;
+    overflow: hidden;
+
+    @media screen and (min-width: $tablet) {
+      padding: 20rem 0;
+    }
+
+    @media screen and (max-width: $tablet) {
+      padding: 10rem 0;
+    }
+    
+    @media screen and (max-width: $phone) {
+      padding: 5rem 0;
+    }
+
+    @media screen and (max-width: $phone-sm) {
+      padding: 2.5rem 0;
+    }
 
     @keyframes slideDown {
       from {
@@ -28,6 +46,20 @@
       font-size: 5rem;
       font-weight: bold;
       animation: slideDown 0.5s forwards;
+      text-align: center;
+      padding: 0 5rem;
+
+      @media screen and (min-width: $phone-lg) {
+        font-size: 4rem;
+      }
+
+      @media screen and (max-width: $phone){
+        font-size: 2.5rem;
+      }
+
+      @media screen and (max-width: $phone-sm) {
+        font-size: 2.5rem;
+      }
     }
 
     i {

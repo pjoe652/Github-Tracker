@@ -1,7 +1,6 @@
+import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import './App.css';
-import { Route, BrowserRouter as Router } from 'react-router-dom';
 import Homepage from './components/Homepage';
-import UserDetails from './components/UserDetails';
 import Userpage from './components/UserPage';
 
 function App() {
@@ -15,6 +14,9 @@ function App() {
       </Route>
       <Route exact path="/">
         <Homepage />
+      </Route>
+      <Route path="*">
+        <Redirect to="/" />
       </Route>
     </Router>
   );
