@@ -17,7 +17,7 @@ function Navbar(props) {
       setActiveSuggestion(activeSuggestion + 1 >= suggestions.length ? 0 : activeSuggestion + 1)
     }
     // Up key
-    else if (e.keycode === 38) {
+    else if (e.keyCode === 38) {
       setActiveSuggestion(activeSuggestion - 1 < 0 ? suggestions.length - 1 : activeSuggestion - 1)
     }
   }
@@ -48,7 +48,7 @@ function Navbar(props) {
             }
           </ul>
         </div>
-        <button type="submit"><i class="fas fa-search" /></button>
+        <button type="submit"><i className="fas fa-search" /></button>
       </form>
     </div>
   )

@@ -185,7 +185,7 @@ function Userpage() {
         : <UserSearch sortType={sortType} setSortType={setSortType} sortedSuggestions={sortedSuggestions} selectUser={selectUser} />
       }
       {
-        displayScrollUp ? <i class="fas fa-arrow-up" onClick={() => window.scrollTo({top: 0, behavior: "smooth"})}/> : null
+        displayScrollUp ? <i className="fas fa-arrow-up" onClick={() => window.scrollTo({top: 0, behavior: "smooth"})}/> : null
       }  
     </div>
   );

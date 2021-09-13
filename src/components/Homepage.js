@@ -1,9 +1,6 @@
-import { useEffect } from "react";
 import Particles from "react-particles-js";
-import { useHistory, useLocation } from "react-router";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 import { particleParams, particleStyle } from "../constants/particle";
-import queryString from "query-string";
 
 function Homepage() {
   const history = useHistory()

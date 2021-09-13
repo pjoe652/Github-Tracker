@@ -7,16 +7,16 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/users/:id">
+        <Route exact path="/" component={Homepage} />
+        <Route exact path="/users/:id" >
+          <div className="fade-in">
+            <Userpage />
+          </div>
+        </Route>
+        <Route exact path="/users" component={Userpage} >
           <Userpage />
         </Route>
-        <Route exact path="/users">
-          <Userpage />
-        </Route>
-        <Route exact path="/">
-          <Homepage />
-        </Route>
-        <Route path="*">
+        <Route path = "*" >
           <Redirect to="/" />
         </Route>
       </Switch>

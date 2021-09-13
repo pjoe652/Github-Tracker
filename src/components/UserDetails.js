@@ -100,7 +100,7 @@ function UserDetails(props) {
           <span className="minor"><b>{activeUserDetail.public_repos}</b> public repositories</span>
           <span className="minor"><b>{activeUserDetail.followers}</b> {activeUserDetail.followers === 1 ? "follower" : "followers"}</span>
           <span className="minor"><b>{activeUserDetail.following}</b> following</span>
-          <Link to={{pathname: activeUserDetail.html_url}} target="_blank"><i class="fab fa-github-square" />Profile Page</Link>
+          <Link to={{pathname: activeUserDetail.html_url}} target="_blank"><i className="fab fa-github-square" />Profile Page</Link>
         </div>
       </div>
       <div className="user-repo-container">
@@ -108,7 +108,7 @@ function UserDetails(props) {
           userRepos.length > 0 ? userRepos.map((repo, i) => 
           <div className="repo-container">
             <div className="language-ring" style={{"--languageColor": repo.language && GitHubColors.get(repo.language) ? GitHubColors.get(repo.language).color : "black"}}/>
-            <Link to={{pathname: activeUserDetail.html_url}} target="_blank"><i class="fab fa-github-square" /> {repo.name}</Link>
+            <Link to={{pathname: activeUserDetail.html_url}} target="_blank"><i className="fab fa-github-square" /> {repo.name}</Link>
             <span className="repo-language">{repo.language}</span>
             <span>Last Updated <b>{new Date(repo.updated_at).toLocaleDateString("en-US")}</b></span>
             <span className="repo-description">{repo.description}</span>
